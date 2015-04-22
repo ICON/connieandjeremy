@@ -77,6 +77,7 @@
       $message = 'Name: ' . $name . "\r\n" . 'Email: ' . $email . "\r\n" . 'Message: ' . $_POST['message']; 
 
       $mail = new PHPMailer;
+      $mail->SMTPDebug = 1;
 
       //$mail->SMTPDebug = 3;                               // Enable verbose debug output
 
@@ -107,6 +108,7 @@
 
       if(!$mail->send()) {
           $errors['emailSend'] = $mail->ErrorInfo;
+          $data['mail'] = $mail;
           $data['success'] = false;
           $data['error'] = $errors;
       } else {
