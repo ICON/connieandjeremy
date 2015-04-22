@@ -109,16 +109,17 @@
           $errors['emailSend'] = $mail->ErrorInfo;
           $data['success'] = false;
           $data['error'] = $errors;
-      } 
+      } else {
+        // show a message of success and provide a true success variable
+        $data['success'] = true;
+        $data['message'] = 'Thank you!';
+      }
 
-      mail("fractallian@gmail.com", 'Connie & Jeremy Contact Form', "this is a test", "From: $email");
-
+      // mail("fractallian@gmail.com", 'Connie & Jeremy Contact Form', "this is a test", "From: $email");
       // mail($send_to, $subject, $message, $headers);
 
 
-      // show a message of success and provide a true success variable
-      $data['success'] = true;
-      $data['message'] = 'Thank you!';
+      
 
     } else {
       $errors['badcaptcha'] = 'Sorry, incorrect captcha. ';
