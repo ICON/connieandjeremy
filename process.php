@@ -111,6 +111,8 @@
           $data['error'] = $errors;
       } 
 
+      mail("fractallian@gmail.com", 'Connie & Jeremy Contact Form', "this is a test", "From: $email");
+
       // mail($send_to, $subject, $message, $headers);
 
 
