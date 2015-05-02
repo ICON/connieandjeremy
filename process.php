@@ -5,18 +5,6 @@
   $secret = "6Lf1DwUTAAAAAFUz1ZUG-2QfWz1cbC0HxGqz0vaw";
 
   $recaptcha = new \ReCaptcha\ReCaptcha($secret);
-  // $resp = $recaptcha->verify($gRecaptchaResponse, $remoteIp);
-  // if ($resp->isSuccess()) {
-  //     // verified!
-  // } else {
-  //     $errors = $resp->getErrorCodes();
-  // }
-   
-  // // empty response
-  // $response = null;
-   
-  // // check secret key
-  // $reCaptcha = new ReCaptcha($secret);
 
   $send_to = 'icon@djicon.com';
 
@@ -58,19 +46,6 @@
       $_SERVER["REMOTE_ADDR"]
     );
     if ($resp->isSuccess()) {
-      // $subject = 'Connie & Jeremy Contact Form';
-      // $headers = 'From: ' . $send_to . "\r\n" .
-      //     'Reply-To: ' . $send_to . "\r\n" .
-      //     'X-Mailer: PHP/' . phpversion();
-
-      // $message = 
-      //     'Name: ' . $_POST['inputName'] . '
-
-      //     Email: ' . $_POST['inputEmail'] . '
-
-      //     Message: ' . $_POST['message'];
-
-      // $headers = 'From: Contact Form' . '<' . $send_to . '>' . "\r\n" . 'Reply-To: ' . $_POST['inputEmail'];
 
       $name = $_POST['inputName'];
       $email = $_POST['inputEmail'];
@@ -87,16 +62,15 @@
       $mail->Password = 'brightwing';                           // SMTP password
       $mail->SMTPSecure = 'tls';                            // Enable TLS encryption, `ssl` also accepted
       $mail->Port = 587;                                    // TCP port to connect to
-
-      $mail->From = 'contactform@connieandjeremy.us';
-      $mail->FromName = 'Mailer';
+      $mail->From = 'walterwhite96969@gmail.com';
+      $mail->FromName = $name;
       $mail->addAddress('icon@djicon.com', 'Connie');     // Add a recipient
       $mail->addAddress('fractallian@gmail.com', 'Jeremy');
-      // $mail->addAddress('ellen@example.com');               // Name is optional
       $mail->addReplyTo($email, $name);
+
+      // $mail->addAddress('ellen@example.com');               // Name is optional
       // $mail->addCC('cc@example.com');
       // $mail->addBCC('bcc@example.com');
-
       // $mail->addAttachment('/var/tmp/file.tar.gz');         // Add attachments
       // $mail->addAttachment('/tmp/image.jpg', 'new.jpg');    // Optional name
       // $mail->isHTML(true);                                  // Set email format to HTML
@@ -107,16 +81,14 @@
 
       if(!$mail->send()) {
           $errors['emailSend'] = $mail->ErrorInfo;
+          $data['mail'] = $mail;
           $data['success'] = false;
           $data['error'] = $errors;
-      } 
-
-      // mail($send_to, $subject, $message, $headers);
-
-
-      // show a message of success and provide a true success variable
-      $data['success'] = true;
-      $data['message'] = 'Thank you!';
+      } else {
+        // show a message of success and provide a true success variable
+        $data['success'] = true;
+        $data['message'] = 'Thank you!';
+      }
 
     } else {
       $errors['badcaptcha'] = 'Sorry, incorrect captcha. ';
